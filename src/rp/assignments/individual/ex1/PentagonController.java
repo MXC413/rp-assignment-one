@@ -1,5 +1,6 @@
 package rp.assignments.individual.ex1;
 
+import lejos.robotics.navigation.DifferentialPilot;
 import rp.robotics.DifferentialDriveRobot;
 import rp.robotics.MobileRobot;
 import rp.systems.StoppableRunnable;
@@ -18,13 +19,21 @@ import rp.systems.StoppableRunnable;
  */
 public class PentagonController implements StoppableRunnable {
 
+	private DifferentialDriveRobot robot;
+	private float sideLength;
+
 	public PentagonController(DifferentialDriveRobot robot, float sideLength) {
-		// TODO Auto-generated method stub
+		this.robot = robot;
+		this.sideLength = sideLength;
 	}
 
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
+		DifferentialPilot pilot = robot.getDifferentialPilot();
+		for (int i = 0; i < 5; i++) {
+			pilot.travel(sideLength);
+			pilot.rotate(72);
+		}
 	}
 
 	@Override

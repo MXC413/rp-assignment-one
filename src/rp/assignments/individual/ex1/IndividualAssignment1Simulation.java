@@ -1,5 +1,9 @@
 package rp.assignments.individual.ex1;
 
+import org.junit.runner.JUnitCore;
+import org.junit.runner.Result;
+import org.junit.runner.notification.Failure;
+
 import lejos.robotics.RangeFinder;
 import lejos.robotics.navigation.Pose;
 import rp.config.WheeledRobotConfiguration;
@@ -51,8 +55,10 @@ public class IndividualAssignment1Simulation {
 		// robot. We pass it the robot object from the simulator.
 		// It is important to note that this controller could also be used with
 		// a real robot provided you have a configuration object to describe it.
-		PentagonController controller = new PentagonController(
-				wrapper.getRobot(), 0.5f);
+//		PentagonController controller = new PentagonController(
+//				wrapper.getRobot(), 0.5f);
+		BumperController controller = new BumperController(
+				wrapper.getRobot());
 
 		// This call attaches theevent listener implemented by the controller
 		// to the touch sensor on the simulated robot
@@ -90,6 +96,18 @@ public class IndividualAssignment1Simulation {
 	public static void main(String[] args) {
 		IndividualAssignment1Simulation demo = new IndividualAssignment1Simulation();
 		demo.run();
+		
+		Result result = JUnitCore
+                .runClasses(rp.assignments.individual.ex1.Ex1Tests.class);
+
+        System.out.println(String.format("%d/%d tests successful",
+                result.getRunCount() - result.getFailureCount(),
+                result.getRunCount()));
+        for (Failure failure : result.getFailures()) {
+            System.out.println(failure.toString());
+        }
 	}
+	
+	
 
 }
